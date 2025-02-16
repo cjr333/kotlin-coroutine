@@ -3,9 +3,12 @@ package flow
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.asFlow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.reduce
+import kotlinx.coroutines.flow.single
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.flow.transform
 import kotlinx.coroutines.runBlocking
@@ -72,6 +75,14 @@ class FlowOperators {
                 .map { it * it } // squares of numbers from 1 to 5
                 .reduce { a, b -> a + b } // sum them (terminal operator)
             log(sum)
+        }
+    }
+
+    @Test
+    fun `first vs single`() {
+        runBlocking {
+            println(flowOf(1, 2).first())
+            println(flowOf(1, 2).single())
         }
     }
 }
