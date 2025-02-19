@@ -174,6 +174,7 @@ class FlatteningFlows {
             override suspend fun emit(value: T) {
                 if (prevCollector?.completed != false) {
                     buffer.forEach { sendingCollector.emit(it) }
+                    buffer.clear()
                     sendingCollector.emit(value)
                 } else {
                     buffer.add(value)
@@ -198,6 +199,7 @@ class FlatteningFlows {
                 }
                 if (buffer.isNotEmpty()) {
                     buffer.forEach { sendingCollector.emit(it) }
+                    buffer.clear()
                 }
             }
         }
